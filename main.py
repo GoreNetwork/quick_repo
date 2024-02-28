@@ -68,6 +68,7 @@ def pull_description(interface):
             line = line.lstrip(' ')
             print (line)
             return (get_after_first_space(line))
+    return "no description"
 
 def pull_standby_data(interface):
     standbys = []
@@ -115,9 +116,12 @@ def build_output(all_interface_data, filename):
             print (filename, " Has multiple standbys on ", each_interface['interface_name'], "Please check this output")
         line = f"{each_interface['interface_name']},"
         subnet_lines = []
-        for each in each_interface['subnets']:
-            tmp_line = line+f"{each[0]},-,{each[1]},{each_interface['description']},-,-,-,{each_interface['standbys'][0]},-,{each_interface['acls']['acl_in']}, {each_interface['acls']['acl_out']}\n"
-            output = output+tmp_line
+        if len(each_interface['subnets']) !=0:
+            if len(each_interface['standbys'])==0:
+                each_interface['standbys'] = ["-"]
+            for each in each_interface['subnets']:
+                tmp_line = line+f"{each[0]},-,{each[1]},{each_interface['description']},-,-,-,{each_interface['standbys'][0]},-,{each_interface['acls']['acl_in']}, {each_interface['acls']['acl_out']}\n"
+                output = output+tmp_line
     output_file_name = f'{filename}_output.csv'
     write_to_text_file(output, output_file_name)
 
