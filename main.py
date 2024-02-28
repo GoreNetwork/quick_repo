@@ -1,4 +1,3 @@
-import textfsm
 import os
 import re
 from ciscoconfparse import CiscoConfParse
