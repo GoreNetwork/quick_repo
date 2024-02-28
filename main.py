@@ -115,6 +115,7 @@ def build_output(all_interface_data, filename):
             print (filename, " Has multiple standbys on ", each_interface['interface_name'], "Please check this output")
         line = f"{each_interface['interface_name']},"
         subnet_lines = []
+        pprint (each_interface)
         if len(each_interface['subnets']) !=0:
             if len(each_interface['standbys'])==0:
                 each_interface['standbys'] = ["-"]
