@@ -111,7 +111,8 @@ def deal_with_interfaces(interfaces):
 def build_output(all_interface_data, filename):
     output = ''
     for each_interface in all_interface_data:
-        pprint (each_interface)
+        if len(each_interface)<2:
+            continue
         if len(each_interface['standbys'])>1:
             print (filename, " Has multiple standbys on ", each_interface['interface_name'], "Please check this output")
         line = f"{each_interface['interface_name']},"
@@ -132,7 +133,5 @@ for filename in os.listdir(input_dir):
             data = f.read()
             data = data.split('\n')
             interfaces = find_child_text(data, 'nterface')
-            pprint (interfaces)
-            # all_interface_data = deal_with_interfaces(interfaces)
-            # pprint (all_interface_data)
-            # build_output(all_interface_data, filename)
+            all_interface_data = deal_with_interfaces(interfaces)
+            build_output(all_interface_data, filename)
