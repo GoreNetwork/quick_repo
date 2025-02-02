@@ -1,10 +1,12 @@
 import re
 import netmiko
 
+print("bob")
 
-def make_connection(ip, username, password):
+
+def make_connection(ip, username, password, conn_type="cisco_ios"):
     net_connect = netmiko.ConnectHandler(
-        device_type="cisco_ios", ip=ip, username=username, password=password
+        device_type=conn_type, ip=ip, username=username, password=password
     )
     return net_connect
 
